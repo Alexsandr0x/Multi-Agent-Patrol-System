@@ -1,14 +1,22 @@
 package Objects;
 
+import sun.management.Agent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Alexsandr0x.
  */
-public class PatrolAgent {
+public class PatrolAgent extends Agent{
     private GridMap map;
     private int x, y;
+
+    @Override
+    public void setup()
+    {
+        addBehaviour( new BlockTwice(this) );
+    }
 
     public PatrolAgent(GridMap map) {
         this.map = map;
@@ -20,7 +28,7 @@ public class PatrolAgent {
     }
 
     public void update() {
-        List<Cell> possibleMoves = new ArrayList<>();
+        List<Cell> possibleMoves = new ArrayList<Cell>();
         possibleMoves.add(map.getTileStatus(x, y - 1));
         possibleMoves.add(map.getTileStatus(x, y + 1));
         possibleMoves.add(map.getTileStatus(x - 1, y));

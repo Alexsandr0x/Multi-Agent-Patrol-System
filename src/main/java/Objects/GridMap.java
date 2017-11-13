@@ -7,6 +7,8 @@ public class GridMap {
     private static Cell[][] map = null;
     private int size = -1;
 
+
+
     public int getSize(){
         return size;
     }
