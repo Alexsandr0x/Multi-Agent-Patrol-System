@@ -10,11 +10,8 @@
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/net.sf.ingenias/jade -->
-        <dependency>
-            <groupId>net.sf.ingenias</groupId>
-            <artifactId>jade</artifactId>
-            <version>4.3</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.tilab.jade/jade -->
+
     </dependencies>
 
 </project>
