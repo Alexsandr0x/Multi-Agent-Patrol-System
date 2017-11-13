@@ -9,9 +9,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/net.sf.ingenias/jade -->
-        <!-- https://mvnrepository.com/artifact/com.tilab.jade/jade -->
-
     </dependencies>
 
 </project>
