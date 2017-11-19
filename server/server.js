@@ -28,7 +28,6 @@ app.listen(port);
 
 
 setInterval(function () {
-    console.log('ticking');
     if(map)
         map.decayMapPhero(-0.5)
 }, 1000);

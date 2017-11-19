@@ -17,7 +17,7 @@ module.exports = class Map {
             rawMap[i] = item.split(',').map(Number);
             rawMap[i].forEach(function (node, j) {
                 if(node != -1){
-                    availableNodes.push({x: i, y: j})
+                    availableNodes.push({x: j, y: i})
                 }
             })
         });
@@ -50,10 +50,10 @@ module.exports = class Map {
 
 	getNeighbours(x, y) {
 	    let _response = {};
-	    if(y != 0) _response.up = rawMap[y - 1][x];
-	    if(y < rawMap.length - 1) _response.down = rawMap[y + 1][x];
-	    if(x != 0) _response.left = rawMap[y][x - 1];
-        if(x < rawMap[0].length - 1) _response.right = rawMap[y][x + 1];
+	    if(y != 0) _response.up = {phero: rawMap[y - 1][x], x: x, y: y - 1};
+	    if(y < rawMap.length - 1) _response.down = {phero: rawMap[y + 1][x], x: x, y: y + 1};
+	    if(x != 0) _response.left = {phero: rawMap[y][x - 1], x: x-1, y: y};
+        if(x < rawMap[0].length - 1) _response.right = {phero: rawMap[y][x + 1], x: x + 1, y: y};
         return _response
     }
 

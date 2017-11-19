@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class WebEnvironment implements EnvironmentConnection {
 
     private String base_url = "localhost/api";
     private Gson gson = new Gson();
-    Type type = new TypeToken<Map<String, String>>(){}.getType();
+    Type type = new TypeToken<Map<String, Object>>(){}.getType();
 
     public WebEnvironment(String url) throws IOException {
         super();
@@ -40,8 +41,8 @@ public class WebEnvironment implements EnvironmentConnection {
         while ((inputLine = input.readLine()) != null){
             Map<String, Object> myMap = gson.fromJson(inputLine, type);
             actualCell = new Cell(
-                    Integer.parseInt((String) myMap.get("x")),
-                    Integer.parseInt((String) myMap.get("y")),
+                    ((Double) myMap.get("x")).intValue(),
+                    ((Double) myMap.get("y")).intValue(),
                     0);
         }
         input.close();
@@ -50,7 +51,33 @@ public class WebEnvironment implements EnvironmentConnection {
         return actualCell;
     }
 
-    public List<Cell> getNeighbours(Cell actualCell) {
+    public List<Cell> getNeighbours(Cell actualCell) throws IOException {
+        int x = actualCell.x;
+        int y = actualCell.y;
+        URL apiUrl = new URL(base_url + "/neighbours" +
+                "?" + "x=" + x + "&" + "y=" + y);
+        URLConnection connection = apiUrl.openConnection();
+        BufferedReader input = new BufferedReader(
+                new InputStreamReader(
+                        connection.getInputStream()));
+
+        String inputLine;
+
+        while ((inputLine = input.readLine()) != null){
+            Map<String, Object> myMap = gson.fromJson(inputLine, type);
+            List<Cell> neighbours = new ArrayList<Cell>();
+
+            for(Map.Entry<String, Object> entry : myMap.entrySet()) {
+                Map<String, Object> neighbourMap = (Map<String, Object>) entry.getValue();
+                neighbours.add(new Cell(
+                        ((Double) neighbourMap.get("x")).intValue(),
+                        ((Double) neighbourMap.get("y")).intValue(),
+                        ((Double) neighbourMap.get("phero"))
+                ));
+            }
+            return neighbours;
+        }
+
         return null;
     }
 
