@@ -5,15 +5,17 @@ package Objects;
  */
 public class Cell {
     public int phero;
-    public int status;
+    public int x;
+    public int y;
 
-    public Cell(int status, int phero) {
+    public Cell(int x, int y, int phero) {
         this.phero = phero;
-        this.status = status;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public String toString() {
-        return "(" + status + "," + phero + ")";
+        return "([" + x + "," + y + "]," + phero + ")";
     }
 }

@@ -1,6 +1,5 @@
 package simpleModel;
 
-import Objects.GridMap;
 import Objects.PatrolAgent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -18,8 +17,6 @@ public class PatrolMain {
     static AgentController agentController;
 
     public static void main(String[] args) throws InterruptedException  {
-
-        GridMap map = new GridMap(GRID_SIZE);
         PatrolAgent agent = new PatrolAgent();
         //iniciando main container
         //startMainContainer(Profile.LOCAL_HOST, Profile.LOCAL_PORT, "UFABC");
