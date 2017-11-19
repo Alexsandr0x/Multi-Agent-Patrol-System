@@ -17,7 +17,9 @@ router.get('/random_location', function(req, res) {
 });
 
 router.get('/neighbours', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
+    let x = parseInt(req.param('x'));
+    let y = parseInt(req.param('y'));
+    res.json(map.getNeighbours(x, y));
 });
 
 router.get('/', function(req, res) {

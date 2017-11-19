@@ -45,10 +45,11 @@ module.exports = class Map {
 
 	getNeighbours(x, y) {
 	    let _response = {};
-	    if(x != 0) _response.up= rawMap[x][y - 1];
-	    if(x < rawMap[0].length) _response.up= rawMap[x][y + 1];
-	    if(y !=0) _response.left = rawMap[x - 1][y];
-        if(y < rawMap.length) _response.right = rawMap[x + 1][y];
+	    console.log(rawMap.length, rawMap[0].length);
+	    if(y != 0) _response.up = rawMap[y - 1][x];
+	    if(y < rawMap.length - 1) _response.down = rawMap[y + 1][x];
+	    if(x != 0) _response.left = rawMap[y][x - 1];
+        if(x < rawMap[0].length - 1) _response.right = rawMap[y][x + 1];
         return _response
     }
 
