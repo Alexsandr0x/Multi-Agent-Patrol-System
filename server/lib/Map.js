@@ -21,31 +21,35 @@ module.exports = class Map {
                 }
             })
         });
+    }
 
-        console.log(rawMap);
-	}
 
-	applyPhero(x, y, phero) {
-	    if (rawMap[x][y] == -1) {
-	        return null
-        } else if (rawMap[x][y] - phero < 0) {
-            rawMap[x][y] = 0
+    applyPhero(x, y, phero) {
+        if (rawMap[y][x] == -1) {
+            return null
+        } else if (rawMap[y][x] - phero < 0) {
+            rawMap[y][x] = 0
         } else {
-            rawMap[x][y] += phero
+            rawMap[y][x] += phero
         }
     }
 
-    decayMapPhero(phero_decay) {
-        rawMap.forEach(function(row, x) {
-            row.forEach(function (item, y) {
-                applyPhero(x, y, phero_decay)
+    decayMapPhero(phero) {
+        rawMap.forEach(function(row, y) {
+            row.forEach(function (item, x) {
+                if (rawMap[y][x] == -1) {
+                    return null
+                } else if (rawMap[y][x] - phero < 0) {
+                    rawMap[y][x] = 0
+                } else {
+                    rawMap[y][x] += phero
+                }
             });
         });
     };
 
 	getNeighbours(x, y) {
 	    let _response = {};
-	    console.log(rawMap.length, rawMap[0].length);
 	    if(y != 0) _response.up = rawMap[y - 1][x];
 	    if(y < rawMap.length - 1) _response.down = rawMap[y + 1][x];
 	    if(x != 0) _response.left = rawMap[y][x - 1];
