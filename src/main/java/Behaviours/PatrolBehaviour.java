@@ -7,7 +7,7 @@ import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Alexsandr0x.
@@ -21,10 +21,34 @@ public class PatrolBehaviour extends SimpleBehaviour {
         System.out.println("Começo do método");
         try {
             List<Cell> neighboursCells = env.getNeighbours(actualPosition);
+            actualPosition = evaporationAlgorithm(neighboursCells);
+            System.out.println(actualPosition);
+            env.postPosition(actualPosition);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        block(1000);
+        block(200);
+    }
+
+    private Cell evaporationAlgorithm(List<Cell> neighbours) {
+        for (Cell cell : neighbours) {
+            if(cell.phero == -1) {
+                cell.phero = Double.MAX_VALUE;
+            }
+        }
+        Collections.sort(neighbours, (a, b) -> a.phero > b.phero ? 1 : -1);
+        double minimum = Double.MAX_VALUE;
+        List<Cell> candidates = new ArrayList<>();
+        for(Cell cell : neighbours) {
+            if(cell.phero <= minimum) {
+                candidates.add(cell);
+                minimum = cell.phero;
+            }
+        }
+        if(candidates.size() > 1) {
+            return candidates.get((new Random()).nextInt(candidates.size()));
+        }
+        return candidates.get(0);
     }
 
     public PatrolBehaviour(Agent agent) throws IOException {

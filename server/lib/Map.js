@@ -2,10 +2,12 @@ const fs = require('fs');
 
 var rawMap = [];
 var availableNodes = [];
+var maxPhero;
 
 module.exports = class Map {
-	constructor(file_name) {
+	constructor(file_name, phero) {
 		this.file_path = __dirname + '/maps/' + file_name;
+		maxPhero = phero;
         let fileData = fs.readFileSync(this.file_path, 'utf-8');
         rawMap = fileData.toString().split('\n');
 
@@ -25,21 +27,14 @@ module.exports = class Map {
 
 
     applyPhero(x, y, phero) {
-        if (rawMap[y][x] == -1) {
-            return null
-        } else if (rawMap[y][x] - phero < 0) {
-            rawMap[y][x] = 0
-        } else {
-            rawMap[y][x] += phero
-        }
+        rawMap[y][x] = phero;
     }
 
     decayMapPhero(phero) {
         rawMap.forEach(function(row, y) {
             row.forEach(function (item, x) {
                 if (rawMap[y][x] == -1) {
-                    return null
-                } else if (rawMap[y][x] - phero < 0) {
+                } else if (rawMap[y][x] + phero < 0) {
                     rawMap[y][x] = 0
                 } else {
                     rawMap[y][x] += phero

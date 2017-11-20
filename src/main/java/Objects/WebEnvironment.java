@@ -63,9 +63,9 @@ public class WebEnvironment implements EnvironmentConnection {
 
         String inputLine;
 
-        while ((inputLine = input.readLine()) != null){
+        while ((inputLine = input.readLine()) != null) {
             Map<String, Object> myMap = gson.fromJson(inputLine, type);
-            List<Cell> neighbours = new ArrayList<Cell>();
+            List<Cell> neighbours = new ArrayList<>();
 
             for(Map.Entry<String, Object> entry : myMap.entrySet()) {
                 Map<String, Object> neighbourMap = (Map<String, Object>) entry.getValue();
@@ -81,7 +81,16 @@ public class WebEnvironment implements EnvironmentConnection {
         return null;
     }
 
-    public void postPosition(Cell newCell) {
+    public void postPosition(Cell newCell) throws IOException {
+        int x = newCell.x;
+        int y = newCell.y;
+        URL apiUrl = new URL(base_url + "/drop_phero" +
+                "?" + "x=" + x + "&" + "y=" + y);
+        URLConnection connection = apiUrl.openConnection();
+        BufferedReader input = new BufferedReader(
+                new InputStreamReader(
+                        connection.getInputStream()));
 
+        while ((input.readLine()) != null);
     }
 }

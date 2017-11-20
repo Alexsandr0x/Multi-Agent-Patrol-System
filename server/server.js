@@ -6,11 +6,14 @@ var Map		   = require('./lib/Map.js')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const MAX_PHERO = 800;
+const PHERO_DECAY = -MAX_PHERO * 0.1;
+
 var port = process.env.PORT || 80;
 
 var router = express.Router();
 
-var map = new Map('plain_map.csv');
+var map = new Map('plain_map.csv', MAX_PHERO);
 
 router.get('/random_location', function(req, res) {
     res.json(map.getRandomLocation());
@@ -22,6 +25,13 @@ router.get('/neighbours', function(req, res) {
     res.json(map.getNeighbours(x, y));
 });
 
+router.get('/drop_phero', function(req, res) {
+    let x = parseInt(req.param('x'));
+    let y = parseInt(req.param('y'));
+    map.applyPhero(x, y, MAX_PHERO);
+    res.json({status: 'OK'});
+});
+
 app.use('/api', router);
 
 app.listen(port);
@@ -29,5 +39,5 @@ app.listen(port);
 
 setInterval(function () {
     if(map)
-        map.decayMapPhero(-0.5)
+        map.decayMapPhero(PHERO_DECAY)
 }, 1000);
