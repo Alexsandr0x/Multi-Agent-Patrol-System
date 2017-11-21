@@ -1,10 +1,12 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
-var Map		   = require('./lib/Map.js')
+var Map		   = require('./lib/Map.js');
+var path       = require("path");
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 const MAX_PHERO = 800;
 const PHERO_DECAY = -MAX_PHERO * 0.1;
@@ -33,6 +35,11 @@ router.get('/drop_phero', function(req, res) {
 });
 
 app.use('/api', router);
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'))
+});
+
 
 app.listen(port);
 
