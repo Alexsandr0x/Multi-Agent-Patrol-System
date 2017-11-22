@@ -37,7 +37,7 @@ router.get('/drop_phero', function(req, res) {
 app.use('/api', router);
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'))
+    res.sendfile(path.join(__dirname + '/index.html'))
 });
 
 
