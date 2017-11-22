@@ -36,9 +36,10 @@ public class PatrolBehaviour extends SimpleBehaviour {
                 cell.phero = Double.MAX_VALUE;
             }
         }
-        Collections.sort(neighbours, (a, b) -> a.phero > b.phero ? 1 : -1);
+        Collections.sort(neighbours);
+        Collections.reverse(neighbours);
         double minimum = Double.MAX_VALUE;
-        List<Cell> candidates = new ArrayList<>();
+        List<Cell> candidates = new ArrayList<Cell>();
         for(Cell cell : neighbours) {
             if(cell.phero <= minimum) {
                 candidates.add(cell);

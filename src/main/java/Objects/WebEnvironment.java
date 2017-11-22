@@ -65,7 +65,7 @@ public class WebEnvironment implements EnvironmentConnection {
 
         while ((inputLine = input.readLine()) != null) {
             Map<String, Object> myMap = gson.fromJson(inputLine, type);
-            List<Cell> neighbours = new ArrayList<>();
+            List<Cell> neighbours = new ArrayList<Cell>();
 
             for(Map.Entry<String, Object> entry : myMap.entrySet()) {
                 Map<String, Object> neighbourMap = (Map<String, Object>) entry.getValue();
