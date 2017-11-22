@@ -34,6 +34,10 @@ router.get('/drop_phero', function(req, res) {
     res.json({status: 'OK'});
 });
 
+router.get('/get_map', function(req, res) {
+    res.json(map.getMap());
+});
+
 app.use('/api', router);
 
 app.get('/', function (req, res) {
