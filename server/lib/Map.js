@@ -43,6 +43,8 @@ module.exports = class Map {
         });
     };
 
+	getMap() {return rawMap}
+
 	getNeighbours(x, y) {
 	    let _response = {};
 	    if(y != 0) _response.up = {phero: rawMap[y - 1][x], x: x, y: y - 1};
