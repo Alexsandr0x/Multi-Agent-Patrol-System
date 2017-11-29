@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +7,6 @@
         #container {
             position: relative;
             top: 30px;
-            outline:2px solid #000;
             font-size: 0;
             margin:auto;
             height:960px;
@@ -26,14 +26,34 @@
     <script data-require="jquery@1.10.1" data-semver="1.10.1" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
         var grid;
-
         setInterval(function () {
                 $.get('http://localhost/api/get_map').then(function(responseData) {
                 grid = responseData;
+                var gridHigherLength = Math.max(grid.length, grid[0].length);
+                createGrid(grid, gridHigherLength);
                 //console.log(grid);
             });
         }, 1000);
 
+        function createGrid(grid, length) {
+            $("#container").empty()
+            for (var rows = 0; rows < grid.length; rows++) {
+                for (var columns = 0; columns < grid[0].length; columns++) {
+                    $("#container").append("<div value='"+grid[rows][columns]+"' class='grid'></div>");
+                }
+            }
+            $(".grid").width(960/length);
+            $(".grid").height(960/length);
+
+            $(".grid").each(function(element) {
+                color = (255*parseInt($(element).attr('value'))/800).toString(16).split('.')[0];
+                if(color.length == 1) {
+                    color = "0"+color.toString()
+                }
+                hexcolor = "##00ff"+color
+                $(element).css('background-color', hexcolor);
+            })
+        };
 
         /* CODE STARTS HERE
         //function that builds a grid in the "container"
