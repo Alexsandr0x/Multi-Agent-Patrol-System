@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
 
 const MAX_PHERO = 800;
-const PHERO_DECAY = -MAX_PHERO * 0.1;
+const PHERO_DECAY = -MAX_PHERO * 0.005;
 
 var port = process.env.PORT || 80;
 
@@ -50,5 +50,6 @@ app.listen(port);
 
 setInterval(function () {
     if(map)
-        map.decayMapPhero(PHERO_DECAY)
-}, 1000);
+        map.decayMapPhero(PHERO_DECAY);
+
+}, 100);

@@ -23,7 +23,8 @@ public class Cell implements Comparable<Cell> {
 
 
     public int compareTo(Cell cell) {
-        return this.phero > cell.phero ? 1 :
-                this.phero < cell.phero ? 1 : 0;
+        return this.phero < cell.phero ? 1 :
+                this.phero > cell.phero ? -1 : 0;
     }
+
 }

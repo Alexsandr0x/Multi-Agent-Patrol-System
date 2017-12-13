@@ -23,11 +23,10 @@ public class PatrolMain {
         startMainContainer("127.0.0.1", Profile.LOCAL_PORT, "UFABC");
         //adicionando agente
         //SINTAXE: addAgent(container, nome_do_agente, classe, parametros de inicializacao)
-        addAgent(containerController, "Graca", PatrolAgent.class.getName(), null );
-
-        //adicionando agente RMA
-        //addAgent(containerController, "rma", "jade.tools.rma.rma", null);
-        addAgent(containerController, "rma", jade.tools.rma.rma.class.getName(), null);
+        addAgent(containerController, "Patrol1", PatrolAgent.class.getName(), null );
+        addAgent(containerController, "Patrol2", PatrolAgent.class.getName(), null );
+        addAgent(containerController, "Patrol3", PatrolAgent.class.getName(), null );
+        addAgent(containerController, "Patrol4", PatrolAgent.class.getName(), null );
     }
 
     static void startMainContainer(String host, String port, String name) {
